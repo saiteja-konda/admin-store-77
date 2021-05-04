@@ -2,7 +2,6 @@ import { Paper, withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import EditorContextProvider from "../../lib/context/EditorContext";
-import CategoryTable from "./CategoryTable";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 const styles = (theme) => ({
@@ -32,7 +31,7 @@ const styles = (theme) => ({
     background: "#eaeff1",
   },
 });
-function ProductCrud(props) {
+function Products(props) {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const { classes } = props;
@@ -71,13 +70,13 @@ function ProductCrud(props) {
         </div>
       </Paper>
       <br />
-      <Paper elevation={0}>
+      {/* <Paper elevation={0}>
         <CategoryTable />
-      </Paper>
+      </Paper> */}
     </main>
   );
 }
-ProductCrud.propTypes = {
+Products.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(ProductCrud);
+export default withStyles(styles)(Products);

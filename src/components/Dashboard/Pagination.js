@@ -1,6 +1,8 @@
-import React from "react";
+/* eslint-disable */
+
 import _ from "lodash";
 import PropTypes from "prop-types";
+import React from "react";
 
 function Pagination({
   pageSize,
@@ -14,27 +16,27 @@ function Pagination({
   const pages = _.range(1, pagesCount + 1);
   return (
     <>
-      <div className="hint-text">
+      <div className="text-center">
         Showing <b>{Products.length}</b> out of <b>{ItemsCount}</b> entries
       </div>
-      <ul className="pagination">
-        <li className="page-item ">
-          <a>Previous</a>
-        </li>
-        {pages?.map((page) => (
-          <li
-            key={page}
-            className={page === currentPage ? "page-item active" : "page-item"}
-          >
-            <a className="page-link" onClick={() => onPageChange(page)}>
-              {page}
-            </a>
-          </li>
-        ))}
-        <li className="page-item">
-          <a className="page-link">Next</a>
-        </li>
-      </ul>
+      <div className="d-flex justify-content-end">
+        <div>
+          <ul className="pagination mt-1">
+            {pages?.map((page) => (
+              <li
+                key={page}
+                className={
+                  page === currentPage ? "page-item active" : "page-item"
+                }
+              >
+                <a className="page-link" onClick={() => onPageChange(page)}>
+                  {page}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </>
   );
 }

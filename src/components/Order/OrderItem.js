@@ -1,10 +1,4 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 import {
-  AppBar,
-  Button,
-  ButtonGroup,
   Divider,
   Grid,
   IconButton,
@@ -16,19 +10,20 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  Snackbar,
 } from "@material-ui/core";
+import { blue } from "@material-ui/core/colors";
+import Modal from "@material-ui/core/Modal";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { deepPurple,blue } from "@material-ui/core/colors";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const note = () => {
@@ -60,21 +55,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {

@@ -1,8 +1,14 @@
 import React from "react";
+import { Widget } from "react-cloudinary-upload-widget";
 
-import { WidgetLoader, Widget } from "react-cloudinary-upload-widget";
+const ImageUploader = ({ getNewPromo, Promos }) => {
+  const handleSuccess = (res) => {
+    getNewPromo({
+      addedImage: res,
+      newArray: { id: "Promos", variants: [...Promos, res] },
+    });
+  };
 
-const ImageUploader = ({ getNewPromo }) => {
   return (
     <>
       <Widget
@@ -10,21 +16,26 @@ const ImageUploader = ({ getNewPromo }) => {
         resourceType={"image"}
         cloudName={"saiteja"}
         uploadPreset={"bondi_la_fleur"}
-        buttonText={"Open"}
+        buttonText={"Add Banner"}
         style={{
           color: "white",
           border: "none",
           width: "120px",
-          backgroundColor: "green",
+          backgroundColor: "#1da1f2",
           borderRadius: "4px",
           height: "25px",
-          //   opacity: "0",
         }} // inline styling only or style id='cloudinary_upload_button'
         folder={"my_folder"} // set cloudinary folder name to send file
         cropping={false} // set ability to crop images -> default = true
-        onSuccess={(res) => getNewPromo({ url: res.info.secure_url })} // add success callback -> returns result
+        // onSuccess={(res) => console.log(res)} // add success callback -> returns result
+        onSuccess={(res) =>
+          handleSuccess({
+            url: res.info.secure_url,
+            title: res.info.original_filename,
+            asset_id: res.info.asset_id,
+          })
+        } // add success callback -> returns result
         onFailure={(res) => console.log(res)}
-        logging={true} // add failure callback -> returns 'response.error' + 'response.result'
         logging={false} // logs will be provided for success and failure messages,
         // set to false for production -> default = true
         customPublicId={"sample"} // set a specific custom public_id.

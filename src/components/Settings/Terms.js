@@ -1,11 +1,8 @@
 import { Button, Typography } from "@material-ui/core";
-import axios from "axios";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useState } from "react";
-
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-
-import { useStoreActions, useStoreState } from "easy-peasy";
 
 function Terms() {
   const { site } = useStoreState((state) => state.vox);

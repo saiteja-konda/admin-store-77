@@ -1,18 +1,16 @@
-import React, { useContext } from "react";
+/* eslint-disable */
 import { Button, IconButton } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverTwoToneIcon from "@material-ui/icons/DeleteForeverTwoTone";
-import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import { EditorContext } from "../../lib/context/EditorContext";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import DeleteForeverTwoToneIcon from "@material-ui/icons/DeleteForeverTwoTone";
+import React, { useContext } from "react";
+import { EditorContext } from "../../lib/context/EditorContext";
 const columns = [
   { id: "title", label: "Title", minWidth: 80 },
   { id: "genre", label: "Category", minWidth: 10 },
@@ -95,14 +93,14 @@ function PTable({ Products, setLoading, getProduct, deleteProduct, onSort }) {
                             <>
                               <Button
                                 color="primary"
-                                // onClick={() => {
-                                //   getProduct(row.id);
-                                //   setLoading(true);
-                                //   setTimeout(() => {
-                                //     setComponent("Edit");
-                                //     setOpenthis(true), setLoading(false);
-                                //   }, 3000);
-                                // }}
+                                onClick={() => {
+                                  getProduct(row.id);
+                                  setLoading(true);
+                                  setTimeout(() => {
+                                    setComponent("Edit");
+                                    setOpenthis(true), setLoading(false);
+                                  }, 3000);
+                                }}
                               >
                                 Edit
                               </Button>

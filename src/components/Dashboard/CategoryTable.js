@@ -1,55 +1,40 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { useStoreActions, useStoreState } from "easy-peasy";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverTwoToneIcon from "@material-ui/icons/DeleteForeverTwoTone";
-import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import { ButtonGroup, IconButton } from "@material-ui/core";
-
-import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
-
-import CatCreate from "../../components/catCreate";
-import CatEdit from "../../components/catEdit";
-import EditModal from "../../components/EditModal";
-
-// import BarLoader from "react-spinners/BarLoader";
-// import { css } from "@emotion/core";
-import CategoryTableHeader from "./CategoryTableHeader";
+/* eslint-disable */
 
 import {
   Box,
   Button,
-  Card,
+  ButtonGroup,
   CardHeader,
-  Chip,
-  createMuiTheme,
-  Divider,
-  makeStyles,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   TableSortLabel,
-  ThemeProvider,
-  Tooltip,
 } from "@material-ui/core";
+import DeleteForeverTwoToneIcon from "@material-ui/icons/DeleteForeverTwoTone";
+import EditIcon from "@material-ui/icons/Edit";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import CatCreate from "../../components/catCreate";
+import CatEdit from "../../components/catEdit";
 
 function CategoryTable() {
   const { categories, products } = useStoreState((state) => state.vox);
   const { getCategories, deleteCategory, getCategory } = useStoreActions(
     (state) => state.vox
   );
-  const [open, setOpen] = useState(false);
   const [openCatCreate, setOpenCatCreate] = useState(false);
   const [openCatEdit, setOpenCatEdit] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   const onCloseCatCreateModal = () => {
     setOpenCatCreate(false);
@@ -58,11 +43,9 @@ function CategoryTable() {
     setOpenCatEdit(false);
   };
 
-  const onCloseModal = () => setOpen(false);
   return (
     <>
       <CardHeader title="Categories" />
-      {/* <CategoryTableHeader setOpenCatCreate={setOpenCatCreate} /> */}
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
@@ -128,9 +111,7 @@ function CategoryTable() {
       >
         <Button
           color="primary"
-          // endIcon={<ArrowRightIcon />}
           size="small"
-          variant="text"
           variant="contained"
           fullWidth
           onClick={() => {
@@ -140,27 +121,6 @@ function CategoryTable() {
           Add New Category
         </Button>
       </Box>
-      {/* </Card> */}
-      {/* <BarLoader
-        color="red"
-        loading={isLoading}
-        height={1}
-        width={900}
-        css={override}
-      /> */}
-      <Modal
-        open={open}
-        onClose={onCloseModal}
-        classNames={{
-          overlay: "customOverlay",
-          modal: "customModal",
-        }}
-        center
-      >
-        <div className="container">
-          <EditModal setOpen={setOpen} />
-        </div>
-      </Modal>
 
       <Modal open={openCatCreate} onClose={onCloseCatCreateModal} center>
         <div

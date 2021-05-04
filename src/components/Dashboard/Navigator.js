@@ -1,31 +1,34 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import { withStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import HomeIcon from "@material-ui/icons/Home";
-import StorefrontIcon from "@material-ui/icons/Storefront";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import DescriptionIcon from "@material-ui/icons/Description";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
-import InfoIcon from "@material-ui/icons/Info";
+import CategoryIcon from "@material-ui/icons/Category";
+import DescriptionIcon from "@material-ui/icons/Description";
+import FaceIcon from "@material-ui/icons/Face";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import GavelIcon from "@material-ui/icons/Gavel";
+import HomeIcon from "@material-ui/icons/Home";
+import InfoIcon from "@material-ui/icons/Info";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SecurityIcon from "@material-ui/icons/Security";
-import FaceIcon from "@material-ui/icons/Face";
+import StorefrontIcon from "@material-ui/icons/Storefront";
 import ViewCarouselIcon from "@material-ui/icons/ViewCarousel";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import { DashboardContext } from "../../lib/context/DashboardContext";
 const categories = [
   {
     id: "Shop",
     children: [
-      { id: "Products", icon: <StorefrontIcon />, active: true },
+      { id: "Products", icon: <StorefrontIcon /> },
+      { id: "Categories", icon: <CategoryIcon /> },
       { id: "Orders", icon: <ListAltIcon /> },
     ],
   },
@@ -39,7 +42,7 @@ const categories = [
   {
     id: "Promotions",
     children: [
-      { id: "Banners", icon: <ViewCarouselIcon />, active: true },
+      { id: "Banners", icon: <ViewCarouselIcon /> },
       { id: "Referees", icon: <FaceIcon /> },
       { id: "Testmonials", icon: <FavoriteIcon /> },
     ],
@@ -108,24 +111,20 @@ function Navigator(props) {
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem
+        {/* <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
-        >
-          Bask In Nature
-        </ListItem>
+        ></ListItem> */}
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
           </ListItemIcon>
-          {/* <ListItemText
+          <ListItemText
             classes={{
               primary: classes.itemPrimary,
             }}
           >
-            <Link style={{ textDecoration: "none" }} href="/">
-              Go to Site
-            </Link>
-          </ListItemText> */}
+            <Typography>Baskinnature</Typography>
+          </ListItemText>
         </ListItem>
         {categories?.map(({ id, children }) => (
           <React.Fragment key={id}>
@@ -142,7 +141,10 @@ function Navigator(props) {
               <ListItem
                 key={childId}
                 button
-                className={clsx(classes.item, childId === component ? classes.itemActiveItem : "")}
+                className={clsx(
+                  classes.item,
+                  childId === component ? classes.itemActiveItem : ""
+                )}
                 onClick={() => handleChoice(childId)}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>

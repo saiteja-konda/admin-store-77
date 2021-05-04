@@ -1,14 +1,11 @@
 import { Button, Typography } from "@material-ui/core";
-import axios from "axios";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useState } from "react";
-
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
-import { useStoreActions, useStoreState } from "easy-peasy";
-
 function About() {
-  const { site,  } = useStoreState((state) => state.vox);
+  const { site } = useStoreState((state) => state.vox);
   const { siteUpdate } = useStoreActions((state) => state.vox);
   const [value, setValue] = useState(site.aboutus);
 

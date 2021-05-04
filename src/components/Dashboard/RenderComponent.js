@@ -1,24 +1,27 @@
+import { StoreProvider } from "easy-peasy";
 import React, { useContext } from "react";
+import { store0 } from "../../data/store";
+import { DashboardContext } from "../../lib/context/DashboardContext";
 import Articles from "../Blog/Articles/Articles";
 import Newsletter from "../Blog/NewLetter/Newsletter";
-import About from "../Settings/About";
-import Terms from "../Settings/Terms";
-import ReturnsPolicy from "../Settings/ReturnsPolicy";
-import Credentials from "../Settings/Credentials";
-import Order from "../Order/Order";
-import { DashboardContext } from "../../lib/context/DashboardContext";
-import ProductCrud from "./ProductCrud";
-import { StoreProvider } from "easy-peasy";
-import { store0 } from "../../data/store";
 import Carousel from "../Carousel/Carousel";
+import Order from "../Order/Order";
 import Referees from "../Referees/Referees";
+import About from "../Settings/About";
+import Credentials from "../Settings/Credentials";
+import ReturnsPolicy from "../Settings/ReturnsPolicy";
+import Terms from "../Settings/Terms";
 import Tesmonials from "../Tesmonials/Testmonials";
+import Categories from "./Categories";
+import Products from "./Products";
 function RenderComponent({ site }) {
   const { component } = useContext(DashboardContext);
   const ComponentGenerator = () => {
     switch (component) {
       case "Products":
-        return <ProductCrud />;
+        return <Products />;
+      case "Categories":
+        return <Categories />;
       case "Orders":
         return (
           <StoreProvider store={store0}>
@@ -48,7 +51,11 @@ function RenderComponent({ site }) {
       case "Testmonials":
         return <Tesmonials />;
       default:
-        return <ProductCrud />;
+        return (
+          <StoreProvider store={store0}>
+            <Carousel />
+          </StoreProvider>
+        );
     }
   };
   const UseComponentRender = ComponentGenerator();

@@ -1,22 +1,17 @@
-import React, { useState, useRef, useContext } from "react";
-import axios from "axios";
-import { baseUrl } from "../../utils/urlConfig";
-
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { TextField } from "material-ui-formik-components/TextField";
-import { Select } from "material-ui-formik-components/Select";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+/* eslint-disable */
 import { Grid, Switch, Typography } from "@material-ui/core";
-
+import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import { Select } from "material-ui-formik-components/Select";
+import { TextField } from "material-ui-formik-components/TextField";
+import React, { useContext, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-
-// import BarLoader from "react-spinners/BarLoader";
-// import { css } from "@emotion/core";
+import * as Yup from "yup";
 import { EditorContext } from "../../lib/context/EditorContext";
+import { baseUrl } from "../../utils/urlConfig";
 
 function AddProduct({ handleClose, categories, getProducts }) {
   const formRef = useRef();
@@ -195,17 +190,16 @@ function AddProduct({ handleClose, categories, getProducts }) {
               },
             ],
           })
-          // .then((res) => console.log(res.data))
-          // .then(() => {
-          //  getProducts(),
-          //     setLoading(false),
-          //     handleClose(),
-          //     setPreviewSource(
-          //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
-          //     );
-          //   resetForm({ values: "" });
-          // }
-          // );
+          .then((res) => console.log(res.data))
+          .then(() => {
+            getProducts(),
+              setLoading(false),
+              handleClose(),
+              setPreviewSource(
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
+              );
+            resetForm({ values: "" });
+          });
       } catch (erorr) {
       } finally {
         setDvalue("");

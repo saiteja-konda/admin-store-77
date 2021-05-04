@@ -1,5 +1,5 @@
+import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useState } from "react";
-import { useStoreState, useStoreActions } from "easy-peasy";
 function CatEdit({ setOpenCatEdit }) {
   const { category } = useStoreState((state) => state.vox);
   const { updateCategory } = useStoreActions((state) => state.vox);
@@ -9,7 +9,7 @@ function CatEdit({ setOpenCatEdit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const obj = {
-      id:category.id,
+      id: category.id,
       name,
     };
     updateCategory(obj);

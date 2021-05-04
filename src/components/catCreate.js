@@ -1,7 +1,9 @@
-import React, { useState } from "react";
 import { useStoreActions } from "easy-peasy";
-function CatCreate({setOpenCatCreate}) {
-  const { createCategory,getCategories } = useStoreActions((state) => state.vox);
+import React, { useState } from "react";
+function CatCreate({ setOpenCatCreate }) {
+  const { createCategory, getCategories } = useStoreActions(
+    (state) => state.vox
+  );
   const [name, setName] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -9,7 +11,7 @@ function CatCreate({setOpenCatCreate}) {
       name,
     };
     createCategory(cat);
-    setOpenCatCreate(false)
+    setOpenCatCreate(false);
     getCategories();
   };
   return (
@@ -24,7 +26,6 @@ function CatCreate({setOpenCatCreate}) {
         <button
           className="btn btn-block mt-2"
           type="submit"
-
           style={{
             backgroundColor: "#ff4154",
             color: "#fff",

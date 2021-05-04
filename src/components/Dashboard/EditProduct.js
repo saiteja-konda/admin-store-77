@@ -1,21 +1,15 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import axios from "axios";
-import { baseUrl } from "../../utils/urlConfig";
+/* eslint-disable */
 
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { TextField } from "material-ui-formik-components/TextField";
-import { Select } from "material-ui-formik-components/Select";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Grid, Switch, Typography } from "@material-ui/core";
-
+import { Field, Form, Formik } from "formik";
+import { Select } from "material-ui-formik-components/Select";
+import { TextField } from "material-ui-formik-components/TextField";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-
-// import BarLoader from "react-spinners/BarLoader";
-// import { css } from "@emotion/core";
+import * as Yup from "yup";
 import { EditorContext } from "../../lib/context/EditorContext";
 
 function EditProduct({
@@ -73,7 +67,7 @@ function EditProduct({
       setErrMsg("something went wrong!");
     };
   };
-  
+
   useEffect(() => {
     setUrl(product.image);
   }, []);
@@ -293,33 +287,33 @@ function EditProduct({
       ],
     };
 
-    // if (imageChanged) {
-    //   try {
-    //     axios
-    //       .put(`${baseUrl}/products/${product.id}`, changedObject)
-    //       // .then((res) => console.log(res.data))
-    //       .then(() => {
-    //         getProducts(), setLoading(false), setOpenthis(false), setDvalue("");
-    //         setPreviewSource(
-    //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
-    //         );
-    //         resetForm({ values: "" });
-    //       });
-    //   } catch (erorr) {}
-    // } else {
-    //   try {
-    //     axios
-    //       .put(`${baseUrl}/products/${product.id}`, unChangedObject)
-    //       // .then((res) => console.log(res.data))
-    //       .then(() => {
-    //         getProducts(), setLoading(false), setOpenthis(false), setDvalue("");
-    //         setPreviewSource(
-    //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
-    //         );
-    //         resetForm({ values: "" });
-    //       });
-    //   } catch (erorr) {}
-    // }
+    if (imageChanged) {
+      try {
+        axios
+          .put(`${baseUrl}/products/${product.id}`, changedObject)
+          // .then((res) => console.log(res.data))
+          .then(() => {
+            getProducts(), setLoading(false), setOpenthis(false), setDvalue("");
+            setPreviewSource(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
+            );
+            resetForm({ values: "" });
+          });
+      } catch (erorr) {}
+    } else {
+      try {
+        axios
+          .put(`${baseUrl}/products/${product.id}`, unChangedObject)
+          // .then((res) => console.log(res.data))
+          .then(() => {
+            getProducts(), setLoading(false), setOpenthis(false), setDvalue("");
+            setPreviewSource(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LIuw85eKZxCJ2cIWs0bAmdWbdlMbPBtoKR6PLl8VjMUelxkCEtB7IHm9j4Vy_xEYAr4&usqp=CAU"
+            );
+            resetForm({ values: "" });
+          });
+      } catch (erorr) {}
+    }
   };
 
   return (

@@ -1,22 +1,18 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Hidden from "@material-ui/core/Hidden";
+import Link from "@material-ui/core/Link";
 import {
   createMuiTheme,
   ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import Navigator from "./Navigator";
-import Content from "./Content";
-import Header from "./Header";
+import { useStoreActions } from "easy-peasy";
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import ComponentContextProvier from "../../lib/context/DashboardContext";
+import Navigator from "./Navigator";
 import RenderComponent from "./RenderComponent";
-import { StoreProvider, useStoreActions } from "easy-peasy";
-import { green } from "@material-ui/core/colors";
-import { store0 } from "../../data/store";
 
 function Copyright() {
   return (
@@ -173,10 +169,10 @@ const styles = {
 function Paperbase(props) {
   const { classes } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { getSite } = useStoreActions((state) => state.vox); 
+  const { getSite } = useStoreActions((state) => state.vox);
   useEffect(() => {
     getSite();
-  }, []);
+  }, [getSite]);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -199,10 +195,10 @@ function Paperbase(props) {
             </Hidden>
           </nav>
           <div className={classes.app}>
-            <Header onDrawerToggle={handleDrawerToggle} />
             <main className={classes.main}>
               <RenderComponent />
             </main>
+            <></>
             <footer className={classes.footer}>
               <Copyright />
             </footer>

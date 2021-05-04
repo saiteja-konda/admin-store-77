@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
+import {
+  Button,
+  CardHeader,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import red from "@material-ui/core/colors/red";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import { withStyles } from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search";
-import RefreshIcon from "@material-ui/icons/Refresh";
-import { StoreProvider, useStoreActions, useStoreState } from "easy-peasy";
-import AddIcon from "@material-ui/icons/Add";
-
-import _ from "lodash";
-import { CardHeader, Fab } from "@material-ui/core";
-import { store0 } from "../../data/store";
-import ImageUploader from "../../utils/ImageUploader";
+import Paper from "@material-ui/core/Paper";
+import clsx from "clsx";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { WidgetLoader } from "react-cloudinary-upload-widget";
-
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import ImageUploader from "../../utils/ImageUploader";
 const styles = (theme) => ({
   paper: {
     maxWidth: 936,
@@ -47,14 +46,43 @@ const styles = (theme) => ({
     padding: theme.spacing(6, 4),
     background: "#eaeff1",
   },
+  Modal: {
+    minWidth: 600,
+  },
+  button: {
+    marginTop: "15px",
+    color: "white",
+    backgroundColor: red[500],
+  },
 });
 
 function Carousel(props) {
   const { classes } = props;
   const { Promos } = useStoreState((store) => store.rox);
-  const { getPromos, getNewPromo } = useStoreActions((store) => store.rox);
+  const { getPromos, getNewPromo, addNewPromo, updatePromo } = useStoreActions(
+    (store) => store.rox
+  );
+  const [open, setOpen] = useState(false);
+  useEffect(() => getPromos(), [getPromos]);
+  const [checked, setChecked] = React.useState([0]);
 
-  useEffect(() => getPromos(), []);
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const handleDelete = () => {
+    const cleaned = Promos.filter((o) => checked.indexOf(o.asset_id) == -1);
+    updatePromo({ cleaned, newArray: { id: "Promos", variants: cleaned } });
+  };
 
   return (
     <main className={classes.main}>
@@ -70,30 +98,80 @@ function Carousel(props) {
           </Grid>
           <Grid container spacing={1}>
             {Promos.map((o) => (
-              <Grid item xs={6}>
-                <Paper elevation={12}>
-                  <img src={o.url} style={{ width: "100%" }} />
+              <Grid key={o.asset_id} item xs={6}>
+                <Paper elevation={0}>
+                  <img
+                    src={o.url}
+                    alt="promotion-banner"
+                    style={{ width: "100%" }}
+                  />
+                  <Typography variant="caption" component="p">
+                    {o.title}
+                  </Typography>
                 </Paper>
               </Grid>
             ))}
           </Grid>
+          <Typography variant="subtitle1" color="primary" className="mt-5 text-danger">
+            Make sure you upload Image with dimentions 1280 pixels wide and 480
+            pixels height
+          </Typography>
           <Grid
             container
             direction="row"
             justify="flex-end"
             alignItems="center"
           >
-            <Typography color="textSecondary" align="center" className="mr-2">
-              Add New Image{" "}
-            </Typography>
-            <ImageUploader getNewPromo={getNewPromo} />
+            <Button size="small" onClick={() => setOpen(true)}>
+              Edit
+            </Button>
+            <ImageUploader getNewPromo={getNewPromo} Promos={Promos} />
             <WidgetLoader />
-            <Fab color="primary">
-              <AddIcon />
-            </Fab>
           </Grid>
         </div>
       </Paper>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <Grid container>
+          <Grid item xs={12}>
+            <main className={clsx(classes.Modal)}>
+              <Paper elevation={0}>
+                <List>
+                  {Promos.map((o) => (
+                    <ListItem>
+                      <ListItemText>{o.title}</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Checkbox
+                          checked={checked.indexOf(o.asset_id) !== -1}
+                          tabIndex={-1}
+                          onClick={handleToggle(o.asset_id)}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    disableElevation={true}
+                    // disabled={items.length >= 0 ? true : false}
+                    className={classes.button}
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+              </Grid>
+            </main>
+          </Grid>
+        </Grid>
+      </Modal>
     </main>
   );
 }

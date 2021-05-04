@@ -1,10 +1,11 @@
+import { StoreProvider } from "easy-peasy";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { store } from "./data/store";
-import {StoreProvider} from "easy-peasy";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider store={store}>

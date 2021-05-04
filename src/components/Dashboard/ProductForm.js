@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
 import {
   createMuiTheme,
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import AddProduct from "./AddProduct";
 import { useStoreActions, useStoreState } from "easy-peasy";
-import EditProduct from "./EditProduct";
+import React, { useContext } from "react";
 import { EditorContext } from "../../lib/context/EditorContext";
+import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
 const drawerWidth = 1015;
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductForm() {
   const { categories, product, tempUrl } = useStoreState((state) => state.vox);
-  const { getCategories, getProducts, getProduct, setUrl } = useStoreActions(
+  const { getProducts, getProduct, setUrl } = useStoreActions(
     (state) => state.vox
   );
 
@@ -57,9 +57,7 @@ export default function ProductForm() {
   });
   const refinedArray = newArray.filter((o) => o.value.length > 0);
 
-  const { openthis, setOpenthis, component, setComponent } = useContext(
-    EditorContext
-  );
+  const { openthis, setOpenthis, component } = useContext(EditorContext);
   const componentSwitch = () => {
     switch (component) {
       case "Add":

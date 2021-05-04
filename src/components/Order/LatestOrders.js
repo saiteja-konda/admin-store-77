@@ -1,9 +1,7 @@
-import moment from "moment";
-import { v4 as uuid } from "uuid";
-import PerfectScrollbar from "react-perfect-scrollbar";
+/* eslint-disable */
+
 import {
   Box,
-  Button,
   Card,
   CardHeader,
   Chip,
@@ -17,11 +15,10 @@ import {
   TableRow,
   TableSortLabel,
   ThemeProvider,
-  Tooltip,
 } from "@material-ui/core";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import React, { useEffect, useState } from "react";
 import { green, red } from "@material-ui/core/colors";
+import React, { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import OrderItem from "./OrderItem";
 
 const theme = createMuiTheme({
@@ -51,7 +48,7 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => {
   chip: {
-    // color: theme.palette.error.main;
+    color: theme.palette.error.main;
   }
 });
 

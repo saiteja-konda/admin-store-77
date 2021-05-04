@@ -1,29 +1,14 @@
-import * as React from "react";
+import { CardHeader, Grid } from "@material-ui/core";
 import { useStoreActions, useStoreState } from "easy-peasy";
-import {
-  IconButton,
-  makeStyles,
-  Typography,
-  CardHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Box,
-  Button,
-} from "@material-ui/core";
+import _ from "lodash";
+import * as React from "react";
 import { useEffect, useState } from "react";
-// import BarLoader from "react-spinners/BarLoader";
-// import { css } from "@emotion/core";
-import Pagination from "./Pagination";
+import { EditorContext } from "../../lib/context/EditorContext";
 import { Paginate } from "../../utils/Paginate";
 import ListGroup from "./ListGroup";
-import PTable from "./PTable";
-import _ from "lodash";
-import { EditorContext } from "../../lib/context/EditorContext";
+import Pagination from "./Pagination";
 import ProductTableHeader from "./ProductTableHeader";
+import PTable from "./PTable";
 
 function ProductTable() {
   const { products, categories } = useStoreState((state) => state.vox);
@@ -32,8 +17,8 @@ function ProductTable() {
   );
 
   const [isLoading, setLoading] = useState(false);
-  const [path, setPath] = useState("title");
-  const [order, setOrder] = useState("asc");
+  // const [path, setPath] = useState("title");
+  // const [order, setOrder] = useState("asc");
   const [pageSize, setPageSize] = useState(4);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentGenre, setCurrentGenre] = useState([]);
@@ -71,7 +56,7 @@ function ProductTable() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
   return (
     <>
       <CardHeader title="Products" />
@@ -85,15 +70,16 @@ function ProductTable() {
         getProducts={getProducts}
         handleSearch={handleSearch}
       />
-      <div className="row">
-        <div className="col-2  p-0 m-0">
+
+      <Grid container style={{ marginTop: "10px" }}>
+        <Grid item xs={2}>
           <ListGroup
             Items={categories}
             onItemSelect={handleGenreSelect}
             selectedItem={currentGenre}
           />
-        </div>
-        <div className="col-10 p-0 m-0">
+        </Grid>
+        <Grid item xs={10}>
           <PTable
             Products={data}
             setLoading={setLoading}
@@ -101,17 +87,9 @@ function ProductTable() {
             deleteProduct={deleteProduct}
             onSort={handleOnSort}
           />
-        </div>
-      </div>
-      <div style={{ position: "absloute" }}>
-        {/* <BarLoader
-          color="red"
-          loading={isLoading}
-          height={1}
-          width={900}
-          css={override}
-        /> */}
-      </div>
+        </Grid>
+      </Grid>
+
       <div className="clearfix">
         <Pagination
           ItemsCount={filtered.length}
